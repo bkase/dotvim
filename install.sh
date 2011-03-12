@@ -6,3 +6,4 @@
 
 ln -s vimrc ../.vimrc
 git submodule update --init
+patch bundle/snipmate/snippets/c.snippets < c.snippets.diff
