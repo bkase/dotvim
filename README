@@ -1,1 +1,24 @@
 My ~/.vim folder
+
+Useful vimrc stuff:
+; is :
+<tab> is %
+jj is <ESC>
+
+,W - delete all trailing whitespace from lines in the file
+,w - split window and move cursor to new window 
+;w!! - save a file with sudo
+,a - Ack
+,v - reselect things just pasted
+<C-h>, <C-j>, <C-k>, <C-l> - navigate windows
+,t - toggle taglist
+,f - Fuzzy find a file -- if you open with <C-k> it opens in a vert-spit
+,b - Fuzzy find a buffer
+
+
+Useful surround.vim commands:
+ysW" - surround Word with "
+ds" - delete surrounding "
+cs{ - change surroundings to { }
+vs" - select something and surround it with "
+dst - delete surrounding <tags></tags>

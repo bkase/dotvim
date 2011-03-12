@@ -81,9 +81,6 @@ set smartcase
 filetype plugin on
 syntax on
 
-" background
-set background=dark
-
 " enable mouse
 set mouse=a
 
@@ -144,9 +141,9 @@ set undolevels=1000 " use many levels of undo
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set title "terminal title
 
-" Shows spaces and tabs as you're writing
-set list
-set listchars=tab:>.,trail:.,extends:#,nbsp:.
+" Shows spaces as you're writing
+"set list
+"set listchars=tab:>.trail:.,extends:#,nbsp:.
 
 set pastetoggle=<F2>
 
@@ -180,14 +177,23 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 
-" Use Q for formatting the current paragraph (or selection)
-vmap Q gq
-nmap Q gqap
-
-
 " Tex-Live grep fix
 set grepprg=grep\ -nH\ $*
 
 " Python stuff
 autocmd BufRead,BufNewFile *.py set ai
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,with,try,except,finally,def,class
+
+" indent-guides config
+set ts=4 sw=4 et
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey   ctermbg=darkgrey
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=grey ctermbg=grey
+
+"taglist config
+nnoremap <leader>t :TlistToggle<CR>
+
+"fuzzyfinder config
+nnoremap <leader>f :FufFile<CR>
+nnoremap <leader>b :FufBuffer<CR>
