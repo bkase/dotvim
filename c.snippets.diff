@@ -5,8 +5,8 @@
  		${1}
  	}
 +snippet elif
-+	else if {
-+		${1}
++	else if (${1}){
++		${2}
 +	}
  # Ternary conditional
  snippet t
