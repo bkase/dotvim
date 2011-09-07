@@ -85,7 +85,7 @@ syntax on
 set mouse=a
 
 " set colorscheme
-colorscheme inkpot
+colorscheme solarized
 
 "allows sudo with :w!!
 cmap w!! %!sudo tee > /dev/null %
@@ -197,3 +197,30 @@ nnoremap <leader>t :TlistToggle<CR>
 "fuzzyfinder config
 nnoremap <leader>f :FufFile<CR>
 nnoremap <leader>b :FufBuffer<CR>
+
+"eclim
+" ,i imports whatever is needed for current line
+nnoremap <silent> <LocalLeader>i :JavaImport<cr>
+" ,d opens javadoc for statement in browser
+nnoremap <silent> <LocalLeader>d :JavaDocSearch -x declarations<cr>
+" ,<enter> searches context for statement
+nnoremap <silent> <LocalLeader><cr> :JavaSearchContext<cr>
+" ,jv validates current java file
+nnoremap <silent> <LocalLeader>jv :Validate<cr>
+" ,jc shows corrections for the current line of java
+nnoremap <silent> <LocalLeader>jc :JavaCorrect<cr>
+"use default Taglist instead of Eclim, avoid problem
+let g:EclimTaglistEnabled=0
+"if the current file is in a Eclipse project, open project tree automatically
+let g:EclimProjectTreeAutoOpen=1 
+let g:EclimProjectTreeExpandPathOnOpen=1
+let g:EclimProjectTreeSharedInstance=1  "share tree instance through all tabs
+" use tabnew instead of split for new action
+let g:EclimProjectTreeActions = [ {'pattern': '.*', 'name': 'Tab', 'action': 'tabnew'} ]
+
+"LaTeX
+"auto recompile upon save
+autocmd BufWritePost *.tex !pdflatex <afile>
+"awesome macros
+autocmd BufRead,BufNewFile *.tex call IMAP('`s', '\sum_{<++>}^{<++>}<++>', 'tex')
+autocmd BufRead,BufNewFile *.tex call IMAP('`m', '\mathbb{<++>}<++>', 'tex')
