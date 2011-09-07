@@ -46,3 +46,9 @@ C:
     inc - #include statements
     t - ternary operator
 
+Useful LaTeX stuff:
+In insert mode:
+<C-j> to move to the next set of {}
+`s - \sum_{}^{}
+`m - \mathbb{}
+`/ - \frac{}{}
