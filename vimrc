@@ -50,20 +50,25 @@ set cursorline
 set laststatus=2
 set relativenumber
 set undofile
+set nopaste
 
 " show commands
 set showcmd
+
+" yank to paste buffer
+set clipboard=unnamedplus
 
 " show line and column position of cursor
 set ruler
 
 " status bar
-set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L]\
+set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %c,%l/%L]\
+"set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
 set laststatus=2
 set cmdheight=1
 
 " textwidth
-"set textwidth=79
+"set textwidth=80
 
 " formatting options
 set formatoptions=c,q,r,t
@@ -85,7 +90,8 @@ syntax on
 set mouse=a
 
 " set colorscheme
-colorscheme inkpot
+"colorscheme solarized
+colorscheme dawn
 
 "allows sudo with :w!!
 cmap w!! %!sudo tee > /dev/null %
@@ -131,7 +137,6 @@ nnoremap <leader><space> :noh<cr>
 
 " map tab to %
 nnoremap <tab> %
-nnoremap <tab> %
 
 " hides buffers instead of closing them
 set hidden
@@ -139,7 +144,7 @@ set hidden
 set history=1000   " remember more commands and search history
 set undolevels=1000 " use many levels of undo
 set wildignore=*.swp,*.bak,*.pyc,*.class
-set title "terminal title
+"set title "terminal title
 
 " Shows spaces as you're writing
 "set list
@@ -190,10 +195,55 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey   ctermbg=darkgrey
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=grey ctermbg=grey
-
 "taglist config
 nnoremap <leader>t :TlistToggle<CR>
 
 "fuzzyfinder config
 nnoremap <leader>f :FufFile<CR>
 nnoremap <leader>b :FufBuffer<CR>
+
+"eclim
+" ,i imports whatever is needed for current line
+nnoremap <silent> <LocalLeader>i :JavaImport<cr>
+" ,d opens javadoc for statement in browser
+nnoremap <silent> <LocalLeader>d :JavaDocSearch -x declarations<cr>
+" ,<enter> searches context for statement
+nnoremap <silent> <LocalLeader><cr> :JavaSearchContext<cr>
+" ,jv validates current java file
+nnoremap <silent> <LocalLeader>jv :Validate<cr>
+" ,jc shows corrections for the current line of java
+nnoremap <silent> <LocalLeader>jc :JavaCorrect<cr>
+"use default Taglist instead of Eclim, avoid problem
+let g:EclimTaglistEnabled=0
+"if the current file is in a Eclipse project, open project tree automatically
+let g:EclimProjectTreeAutoOpen=1
+let g:EclimProjectTreeExpandPathOnOpen=1
+let g:EclimProjectTreeSharedInstance=1  "share tree instance through all tabs
+" use tabnew instead of split for new action
+let g:EclimProjectTreeActions = [ {'pattern': '.*', 'name': 'Tab', 'action': 'tabnew'} ]
+
+"LaTeX
+"Compile to pdf
+let g:Tex_CompileRule_dvi = 'pdflatex $*'
+"auto recompile upon save
+autocmd BufWritePost *.tex execute "normal ,ll"
+"custom folds
+let g:Tex_FoldedEnvironments = 'question,verbatim,comment,eq,gather,itemize,align,figure,table,thebibliography,keywords,abstract,titlepage'
+"awesome macros
+autocmd BufRead,BufNewFile *.tex call IMAP('`s', '\sum_{<++>}^{<++>}<++>', 'tex')
+autocmd BufRead,BufNewFile *.tex call IMAP('`m', '\mathbb{<++>}<++>', 'tex')
+autocmd BufRead,BufNewFile *.tex call IMAP('`v', '\verb~<++>~<++>', 'tex')
+autocmd BufRead,BufNewFile *.tex call IMAP('`l', '\lambda', 'tex')
+
+"make sig files have proper highlighting
+autocmd BufRead,BufNewFile *.sig set filetype=sml
+autocmd BufRead,BufNewFile sources.cm set filetype=sml
+autocmd BufRead,BufNewFile *.ispc set filetype=ispc
+
+"make haskell files override 'K' functionality
+autocmd FileType haskell nnoremap K :call Haddock()
+autocmd ShellCmdPost *.hs redraw!
+let g:haddock_browser = '/usr/bin/lynx'
+
+"fix the bad search color with solarized
+hi Search ctermbg=7

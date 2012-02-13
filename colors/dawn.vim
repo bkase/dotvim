@@ -36,7 +36,7 @@ hi LineNr	guifg=Brown guibg=grey80
 hi MoreMsg	gui=NONE guifg=SeaGreen guibg=bg
 hi NonText	gui=NONE guifg=Blue guibg=grey80
 hi Question	gui=NONE guifg=SeaGreen guibg=bg
-hi Search	guifg=fg guibg=PeachPuff
+hi Search	guifg=fg guibg=Red
 hi SpecialKey	guifg=Blue guibg=bg
 hi Title	gui=NONE guifg=Magenta guibg=bg
 hi WarningMsg	guifg=Red guibg=bg
